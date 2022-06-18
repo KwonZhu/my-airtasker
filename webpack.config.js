@@ -3,7 +3,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); //creating dist/index.
 module.exports = {
   mode: 'development',
   entry: './index.jsx',
-
+  resolve: {
+    extensions: ['', '.js', '.jsx'] //to fix: Module not found: Error: Can't resolve './HomePageBanner' in 'C:\Users\...\repos\my-airtasker\app\components\HomePageBanner'
+  },
   module: {
     rules: [
       { //rule 1

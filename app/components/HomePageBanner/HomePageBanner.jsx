@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from '../../../components/Button';
 
 const Wrapper = styled.div`
   height: calc(100vh - 120px);
   max-height: 650px;
-  background: url('https://eu7cmie.cloudimg.io/v7/www.airtasker.com/static/assets/4a8888135ef14b2b.png');
+  background: url('https://www.airtasker.com/images/open-graph/general.jpg');
   display: flex;
   align-items: center;
 `;
@@ -35,6 +36,9 @@ const HomePageBanner = () => (
       <Sub>
         It's amazing what you can't do yourself
       </Sub>
+      <p>
+        <Button>Get started now</Button>
+      </p>
     </Container>
   </Wrapper>
 );

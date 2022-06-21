@@ -14,18 +14,19 @@ const StyleButton = styled.button`
   border-radius: 160px;
 
   ${({size}) => {
-    switch (size) {
-      case 'sm':
-        return css`
-          font-size: 14px;
-          padding: 4px 16px;
-        `;
-      default:
-        return css`
-          font-size: 18px;
-          padding: 16px 24px;
-        `;
-    }
+    return {
+      sm: css`
+        font-size: 14px;
+        padding: 4px 16px;
+      `,
+      md: css`
+        font-size: 18px;
+        padding: 16px 24px;
+      `,
+      //low maintenance  in the future
+      lg: css``,
+      xl: css``,
+    }[size || 'md'];
   }}
 `;
 

@@ -25,7 +25,7 @@ const MenuItem = styled.div`
   font-size: 14px;
   font-weight: bold;
   color: white;
-  padding: 16px 0;
+  padding: 12px 0;
   margin: 0 16px;
   cursor: pointer;
   border-top: 2px solid transparent;
@@ -42,11 +42,12 @@ const MenuItem = styled.div`
 
 const Left = styled.div`
   display: flex;
-  align-items: center; //for Logo alignment
+  align-items: center; //Logo and Post a task alignment
 `;
 
 const Right = styled.div`
   display: flex;
+  align-items: center; //Become a Tasker alignment
   margin-left: auto; //separate Left and Right
 `;
 
@@ -55,7 +56,7 @@ const PageHeader = () => (
     <Container>
       <Left>
         <Logo>My Airtasker</Logo>
-        <Button size='sm'>Post a task</Button>
+        <Button size="sm">Post a task</Button>
         <MenuItem>Categories</MenuItem>
         <MenuItem>Browse tasks</MenuItem>
         <MenuItem>How it works</MenuItem>
@@ -63,6 +64,7 @@ const PageHeader = () => (
       <Right>
         <MenuItem>Sign up</MenuItem>
         <MenuItem>Log in</MenuItem>
+        <Button size="sm" variant="transparent">Become a Tasker</Button>
       </Right>
     </Container>
   </Wrapper>

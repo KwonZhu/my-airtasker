@@ -8,12 +8,10 @@ const StyleButton = styled.button`
   background: transparent;
   cursor: pointer;
 
-  color: white;
-  background-color: rgb(224, 68, 109);
   font-weight: bold;
   border-radius: 160px;
 
-  ${({size}) => {
+  ${({size}) => { //destructuring
     return {
       sm: css`
         font-size: 14px;
@@ -28,10 +26,23 @@ const StyleButton = styled.button`
       xl: css``,
     }[size || 'md'];
   }}
+
+  ${(props) => ({ //without destructuring
+    primary: css`
+      background-color: rgb(224, 68, 109);
+      color: white;
+      border: 2px solid rgb(224, 68, 109);
+    `,
+    transparent: css`
+      background-color: transparent;
+      color: white;
+      border: 2px solid white;
+    `
+  }[props.variant || 'primary'])}
 `;
 
-const Button = ({ children, size }) => ( //get props
-  <StyleButton size={size}>{children}</StyleButton> //pass size to StyleButton
+const Button = ({ children, size, variant }) => ( //get props
+  <StyleButton size={size} variant={variant}>{children}</StyleButton> //pass size to StyleButton
 );
 
 export default Button;

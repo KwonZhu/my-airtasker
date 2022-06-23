@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from '../../components/Button'
+import Modal from '../../components/Modal';
 
 const Wrapper = styled.div`
   margin-bottom: -60px; //overlap between background img and PageHeader
@@ -11,7 +12,6 @@ const Container = styled.div`
   margin: auto;
   height: 60px;
   display: flex;
-  align-items: center;
 `;
 
 const Logo = styled.div`
@@ -51,23 +51,53 @@ const Right = styled.div`
   margin-left: auto; //separate Left and Right
 `;
 
-const PageHeader = () => (
-  <Wrapper>
-    <Container>
-      <Left>
-        <Logo>My Airtasker</Logo>
-        <Button size="sm">Post a task</Button>
-        <MenuItem>Categories</MenuItem>
-        <MenuItem>Browse tasks</MenuItem>
-        <MenuItem>How it works</MenuItem>
-      </Left>
-      <Right>
-        <MenuItem>Sign up</MenuItem>
-        <MenuItem>Log in</MenuItem>
-        <Button size="sm" variant="transparent">Become a Tasker</Button>
-      </Right>
-    </Container>
-  </Wrapper>
-);
+class PageHeader extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showModal: false,
+    }
+    this.handleShowModalChange = this.handleShowModalChange.bind(this);
+    // this.handleSignUpOnClick = this.handleSignUpOnClick.bind(this);
+  }
+
+  handleShowModalChange(newShowModal) {
+    this.setState({
+      showModal: newShowModal,
+    });
+  }
+
+  // handleSignUpOnClick() {
+  //   this.setState({
+  //     showModal: true,
+  //   });
+  // }
+
+  render() {
+    const { showModal } = this.state;
+
+    return (
+      <Wrapper>
+        <Container>
+          <Left>
+            <Logo>My Airtasker</Logo>
+            <Button size="sm">Post a task</Button>
+            <MenuItem>Categories</MenuItem>
+            <MenuItem>Browse tasks</MenuItem>
+            <MenuItem>How it works</MenuItem>
+          </Left>
+          <Right>
+            <MenuItem onClick={() => this.handleShowModalChange(true)}>Sign up</MenuItem>
+            {/* <MenuItem onClick={this.handleSignUpOnClick}>Sign up</MenuItem> */}
+            {showModal && <Modal />}
+            <MenuItem>Log in</MenuItem>
+            <Button size="sm" variant="transparent">Become a Tasker</Button>
+          </Right>
+        </Container>
+      </Wrapper>
+    )
+  }
+}
 
 export default PageHeader;

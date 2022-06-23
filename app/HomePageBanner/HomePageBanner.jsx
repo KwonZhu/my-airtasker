@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   background: url('https://www.airtasker.com/images/open-graph/general.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  background-position-x: 50%;
+  background-position-y: 20%;
   display: flex;
   align-items: center;
 `;

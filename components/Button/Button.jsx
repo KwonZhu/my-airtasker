@@ -1,7 +1,6 @@
-import React from 'react';
 import styled, { css } from 'styled-components'; //{css} is a css handler for css block in 'return css``'
 
-const StyleButton = styled.button`
+const Button = styled.button`
   outline: 0;
   border: 0;
   padding: 0;
@@ -40,9 +39,5 @@ const StyleButton = styled.button`
     `
   }[props.variant || 'primary'])}
 `;
-
-const Button = ({ children, size, variant }) => ( //get props
-  <StyleButton size={size} variant={variant}>{children}</StyleButton> //pass size to StyleButton
-);
 
 export default Button;

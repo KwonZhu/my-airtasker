@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Button from '../../components/Button'
-import Modal from '../../components/Modal';
+import Modal, { CloseButton } from '../../components/Modal';
 
 const Wrapper = styled.div`
   margin-bottom: -60px; //overlap between background img and PageHeader
@@ -56,7 +56,7 @@ class PageHeader extends React.Component {
     super(props);
 
     this.state = {
-      showModal: false,
+      showModal: undefined,
     }
     this.handleShowModalChange = this.handleShowModalChange.bind(this);
     // this.handleSignUpOnClick = this.handleSignUpOnClick.bind(this);
@@ -88,10 +88,21 @@ class PageHeader extends React.Component {
             <MenuItem>How it works</MenuItem>
           </Left>
           <Right>
-            <MenuItem onClick={() => this.handleShowModalChange(true)}>Sign up</MenuItem>
+            <MenuItem onClick={() => this.handleShowModalChange('signUp')}>Sign up</MenuItem>
             {/* <MenuItem onClick={this.handleSignUpOnClick}>Sign up</MenuItem> */}
-            {showModal && <Modal />}
-            <MenuItem>Log in</MenuItem>
+            {showModal === 'signUp'&& (
+              <Modal>
+                <CloseButton onClick={() => this.handleShowModalChange(undefined)} />
+                Sign up
+              </Modal>
+            )}
+            <MenuItem onClick={() => this.handleShowModalChange('logIn')}>Log in</MenuItem>
+             {showModal === 'logIn'&& (
+              <Modal>
+                <CloseButton onClick={() => this.handleShowModalChange(undefined)} />
+                Log in
+              </Modal>
+            )}
             <Button size="sm" variant="transparent">Become a Tasker</Button>
           </Right>
         </Container>

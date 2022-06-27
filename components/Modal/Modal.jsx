@@ -31,7 +31,7 @@ const Wrapper = styled.div`
   right: 0;
   background-color: rgb(0, 0, 0, 0.75);
 
-  //Center the popup horizontally and vertically
+  //Center Modal horizontally and vertically
   display: flex;
   align-items: center;
   justify-content: center;
@@ -41,16 +41,16 @@ const Container = styled.div`
   background-color: white;
   width: 500px;
   border-radius: 5px;
+  
+  padding: 16px;
+  position: relative; //for all content in Modal
 `;
 
-const Modal = () => (
+const Modal = ({
+  children,
+}) => (
   <Wrapper>
-    <Container>
-      <p>Modal</p>
-      <p>Modal</p>
-      <p>Modal</p>
-      <p>Modal</p>
-    </Container>
+    <Container>{children}</Container>
   </Wrapper>
 );
 

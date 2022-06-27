@@ -1,3 +1,5 @@
+// import React from 'react';
+// no need react any more, since change function component Button to styled component Button
 import styled, { css } from 'styled-components'; //{css} is a css handler for css block in 'return css``'
 
 const Button = styled.button`

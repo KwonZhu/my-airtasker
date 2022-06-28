@@ -87,7 +87,13 @@ class PageHeader extends React.Component {
         <Container>
           <Left>
             <Logo>My Airtasker</Logo>
-            <Button size="sm">Post a task</Button>
+            <Button size="sm" onClick={() => this.handleShowModalChange('postATask')}>Post a task</Button>
+            {showModal === 'postATask'&& (
+              <Modal onClose={this.closeModal}>
+                <CloseButton onClick={this.closeModal} />
+                Post a task
+              </Modal>
+            )}
             <MenuItem>Categories</MenuItem>
             <MenuItem>Browse tasks</MenuItem>
             <MenuItem>How it works</MenuItem>
@@ -95,14 +101,14 @@ class PageHeader extends React.Component {
           <Right>
             <MenuItem onClick={() => this.handleShowModalChange('signUp')}>Sign up</MenuItem>
             {/* <=> <MenuItem onClick={this.handleSignUpOnClick}>Sign up</MenuItem> */}
-            {showModal === 'signUp'&& (
+            {showModal === 'signUp' && (
               <Modal onClose={this.closeModal}>
                 <CloseButton onClick={this.closeModal} />
                 Sign up
               </Modal>
             )}
             <MenuItem onClick={() => this.handleShowModalChange('logIn')}>Log in</MenuItem>
-             {showModal === 'logIn'&& (
+             {showModal === 'logIn' && (
               <Modal onClose={this.closeModal}>
                 <CloseButton onClick={this.closeModal} />
                 Log in

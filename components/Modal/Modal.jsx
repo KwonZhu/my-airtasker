@@ -51,8 +51,11 @@ const Modal = ({
   onClose,
 }) => (
   <Wrapper onClick={onClose}> {/* Not only CloseButton, but also Wrapper can close the Modal */}
-                              {/* key can be any name */}
-    <Container>{children}</Container>
+                              {/* when pass props, key can be any name, like onClick, arg... */}
+    {/* to stop propagate onClose in Container, otherwise any click inside the Container will close Modal */}
+    <Container onClick={(event) => event.stopPropagation()}>
+      {children}
+    </Container>
   </Wrapper>
 );
 

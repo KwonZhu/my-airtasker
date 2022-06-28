@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '../../components/Button'
 import Modal, { CloseButton } from '../../components/Modal';
+import SignUPModal from '../PageHeader/components/SignUpModal'
 
 const Wrapper = styled.div`
   margin-bottom: -60px; //overlap between background img and PageHeader
@@ -102,10 +103,7 @@ class PageHeader extends React.Component {
             <MenuItem onClick={() => this.handleShowModalChange('signUp')}>Sign up</MenuItem>
             {/* <=> <MenuItem onClick={this.handleSignUpOnClick}>Sign up</MenuItem> */}
             {showModal === 'signUp' && (
-              <Modal onClose={this.closeModal}>
-                <CloseButton onClick={this.closeModal} />
-                Sign up
-              </Modal>
+              <SignUPModal closeModal={this.closeModal} />
             )}
             <MenuItem onClick={() => this.handleShowModalChange('logIn')}>Log in</MenuItem>
              {showModal === 'logIn' && (

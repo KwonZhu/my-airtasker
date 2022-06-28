@@ -41,15 +41,17 @@ const Container = styled.div`
   background-color: white;
   width: 500px;
   border-radius: 5px;
-  
+
   padding: 16px;
-  position: relative; //for all content in Modal
+  position: relative; //for all absolute content in Modal
 `;
 
 const Modal = ({
   children,
+  onClose,
 }) => (
-  <Wrapper>
+  <Wrapper onClick={onClose}> {/* Not only CloseButton, but also Wrapper can close the Modal */}
+                              {/* key can be any name */}
     <Container>{children}</Container>
   </Wrapper>
 );

@@ -60,6 +60,7 @@ class PageHeader extends React.Component {
     }
     this.handleShowModalChange = this.handleShowModalChange.bind(this);
     // this.handleSignUpOnClick = this.handleSignUpOnClick.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   handleShowModalChange(newShowModal) {
@@ -73,6 +74,10 @@ class PageHeader extends React.Component {
   //     showModal: true,
   //   });
   // }
+
+  closeModal() {
+    this.handleShowModalChange();
+  }
 
   render() {
     const { showModal } = this.state;
@@ -89,17 +94,17 @@ class PageHeader extends React.Component {
           </Left>
           <Right>
             <MenuItem onClick={() => this.handleShowModalChange('signUp')}>Sign up</MenuItem>
-            {/* <MenuItem onClick={this.handleSignUpOnClick}>Sign up</MenuItem> */}
+            {/* <=> <MenuItem onClick={this.handleSignUpOnClick}>Sign up</MenuItem> */}
             {showModal === 'signUp'&& (
-              <Modal>
-                <CloseButton onClick={() => this.handleShowModalChange(undefined)} />
+              <Modal onClose={this.closeModal}>
+                <CloseButton onClick={this.closeModal} />
                 Sign up
               </Modal>
             )}
             <MenuItem onClick={() => this.handleShowModalChange('logIn')}>Log in</MenuItem>
              {showModal === 'logIn'&& (
-              <Modal>
-                <CloseButton onClick={() => this.handleShowModalChange(undefined)} />
+              <Modal onClose={this.closeModal}>
+                <CloseButton onClick={this.closeModal} />
                 Log in
               </Modal>
             )}

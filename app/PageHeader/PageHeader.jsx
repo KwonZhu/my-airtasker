@@ -23,7 +23,7 @@ const Logo = styled.div`
   margin-right: 32px;
 `;
 
-const MenuItem = styled(NakedButton)`
+const MenuItem = styled.div`
   font-size: 14px;
   font-weight: bold;
   color: white;
@@ -105,12 +105,14 @@ class PageHeader extends React.Component {
               </Modal>
             )}
             <MenuItem>Categories</MenuItem>
-            <MenuItem>Browse tasks</MenuItem>
-            <MenuItem>How it works</MenuItem>
+            <MenuItem as='a'>Browse tasks</MenuItem> {/* render as a <a> tag instead of a <div> */}
+            <MenuItem as='a'>How it works</MenuItem>
           </Left>
           <Right>
             {JSON.stringify(user)}
-            <MenuItem onClick={() => this.handleShowModalChange('signUp')}>Sign up</MenuItem>
+            <MenuItem as={NakedButton} onClick={() => this.handleShowModalChange('signUp')}>
+              Sign up
+            </MenuItem>
             {/* <=> <MenuItem onClick={this.handleSignUpOnClick}>Sign up</MenuItem> */}
             {showModal === 'signUp' && (
               <SignUPModal 
@@ -118,7 +120,9 @@ class PageHeader extends React.Component {
                 onSignUp={(data) => this.handleUserChange(data)} 
               />
             )}
-            <MenuItem onClick={() => this.handleShowModalChange('logIn')}>Log in</MenuItem>
+            <MenuItem as={NakedButton} onClick={() => this.handleShowModalChange('logIn')}>
+              Log in
+            </MenuItem>
              {showModal === 'logIn' && (
               <Modal onClose={this.closeModal}>
                 <CloseButton onClick={this.closeModal} />

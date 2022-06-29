@@ -1,13 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import NakedButton from '../../../NakedButton';
 
-const Button = styled.button`
-  outline: 0;
-  border: 0;
-  padding: 0;
-  background: transparent;
-  cursor: pointer;
-
+const Button = styled(NakedButton)`
   position: absolute;
   padding 16px;
   top: 0;

@@ -1,14 +1,9 @@
 // import React from 'react';
 // no need react any more, since change function component Button to styled component Button
 import styled, { css } from 'styled-components'; //{css} is a css handler for css block in 'return css``'
+import NakedButton from '../NakedButton';
 
-const Button = styled.button`
-  outline: 0;
-  border: 0;
-  padding: 0;
-  background: transparent;
-  cursor: pointer;
-
+const Button = styled(NakedButton)`
   font-weight: bold;
   border-radius: 160px;
 

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Button from '../../components/Button'
 import Modal, { CloseButton } from '../../components/Modal';
 import SignUPModal from '../PageHeader/components/SignUpModal'
+import NakedButton from '../../components/NakedButton';
 
 const Wrapper = styled.div`
   margin-bottom: -60px; //overlap between background img and PageHeader
@@ -22,7 +23,7 @@ const Logo = styled.div`
   margin-right: 32px;
 `;
 
-const MenuItem = styled.div`
+const MenuItem = styled(NakedButton)`
   font-size: 14px;
   font-weight: bold;
   color: white;

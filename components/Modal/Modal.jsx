@@ -39,7 +39,7 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   background-color: white;
-  width: 500px;
+  width: 350px;
   border-radius: 5px;
 
   padding: 16px;

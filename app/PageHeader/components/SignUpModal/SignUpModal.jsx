@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import Modal, { CloseButton } from '../../../../components/Modal';
 import Button from '../../../../components/Button';
+import Input from '../../../../components/Input';
+import FormItem from '../../../../components/FormItem';
 
-const Form = styled.form`
-  
-`;
+const Form = styled.form``;
 
 const Title = styled.div`
   font-size: 18px;
@@ -13,23 +13,8 @@ const Title = styled.div`
   margin-bottom: 32px;
 `;
 
-const Item = styled.div`
-  margin-bottom: 16px;
-`;
-
-const Label = styled.label`
-  display: block; //individual line
-  font-size: 14px;
-  margin-bottom: 8px;
-`;
-
-const Input = styled.input`
-  display: block; //individual line
+const SignUpButton = styled(Button)`
   width: 100%;
-  box-sizing: border-box;
-  border: 1px solid rgba(187, 194, 220);
-  border-radius: 4px;
-  padding: 12px;
 `;
 
 const SignUpModal = ({
@@ -40,22 +25,19 @@ const SignUpModal = ({
     <Title>Join Us</Title>
     <CloseButton onClick={closeModal} />
     <Form>
-      <Item>
-        <Label htmlFor="sign-up-modal-email">Email</Label>
+      <FormItem label="Email" htmlFor="sign-up-modal-email">
         <Input id="sign-up-modal-email" />
-      </Item>
-      <Item>
-        <Label htmlFor="sign-up-modal-password">Password</Label>
+      </FormItem>
+      <FormItem label="Password" htmlFor="sign-up-modal-password">
         <Input type="password" id="sign-up-modal-password" />
-      </Item>
-      <Item>
-        <Label htmlFor="sign-up-modal-confirm-password">Confirm password</Label>
+      </FormItem>
+      <FormItem label="Confirm password" htmlFor="sign-up-modal-confirm-password">
         <Input type="password" id="sign-up-modal-confirm-password" />
-      </Item>
+      </FormItem>
     </Form>
-    <Button>
+    <SignUpButton size="md" variant="success">
       Join Airtasker
-    </Button>
+    </SignUpButton>
   </Modal>
 );
 

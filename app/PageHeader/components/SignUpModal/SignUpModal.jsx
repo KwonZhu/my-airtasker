@@ -22,23 +22,21 @@ class SignUpModal extends React.Component {
     super(props);
 
     this.state = {
-      email: '',
-      password: '',
-      confirmPassword: '',
-    };
+      data: null,
+    }
 
-    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleDataChange = this.handleDataChange.bind(this);
   }
 
-  handleEmailChange(newEmail) {
+  handleDataChange(newData) {
     this.setState({ 
-      email: newEmail,
+      data: newData,
     }); 
   }
 
   render() {
     const { closeModal } = this.props;
-    const { email, password, confirmPassword } = this.state;
+    const { data } = this.state;
     return (
       <Modal onClose={closeModal}>
         <Title>Join Us</Title>
@@ -46,14 +44,14 @@ class SignUpModal extends React.Component {
         <Form
           onSubmit={(event) => {
             event.preventDefault();
-          
-          console.log(email);
-        }}
+
+            console.log(data);
+          }}
         >
           <FormItem label="Email" htmlFor="sign-up-modal-email">
             <Input 
-              value={email}
-              onChange={(event) => this.handleEmailChange(event.target.value)}
+              value={data} //initial value
+              onChange={(event) => this.handleDataChange(event.target.value)} //Triggered when value change
               id="sign-up-modal-email" 
             />
           </FormItem>

@@ -17,6 +17,14 @@ const SignUpButton = styled(Button)`
   width: 100%;
 `;
 
+const Error = styled.div`
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.25px;
+  margin-top: 4px;
+  color: rgb(231, 82, 69);
+
+`;
 class SignUpModal extends React.Component {
   constructor(props) {
     super(props);
@@ -26,24 +34,37 @@ class SignUpModal extends React.Component {
         email: '',
         password: '',
         confirmPassword: '',
-      }
+      },
+      error: {},
     }
 
     this.handleDataChange = this.handleDataChange.bind(this);
+    this.handleErrorChange = this.handleErrorChange.bind(this);
+  }
+  handleErrorChange(key, errorMsg) {
+    this.setState((prevState) => ({
+      error: {
+        ...prevState.error,
+        [key]: errorMsg,
+      },
+    }));
   }
 
-  handleDataChange(key, value) { //update the value corresponding to key
+  handleDataChange(event) {
+    const { name, value } = event.target;
+    
+    this.handleErrorChange(name, 'Please enter a valid email');
     this.setState((prevState) => ({ 
       data: {
         ...prevState.data,
-        [key]: value,
+        [name]: value,
       },
     })); 
   }
 
   render() {
     const { closeModal } = this.props;
-    const { data } = this.state;
+    const { data, error } = this.state;
     return (
       <Modal onClose={closeModal}>
         <Title>Join Us</Title>
@@ -51,28 +72,37 @@ class SignUpModal extends React.Component {
         <Form
           onSubmit={(event) => {
             event.preventDefault();
-
             console.log('state', this.state);
           }}
         >
           <FormItem label="Email" htmlFor="sign-up-modal-email">
             <Input 
+              name="email" //event.target.name
               value={data.email} //initial value
-              onChange={(event) => this.handleDataChange('email', event.target.value)} //Triggered when value change
+              onChange={this.handleDataChange} //Triggered when value(input) change
               id="sign-up-modal-email" 
             />
+            <Error>{error.email}</Error>
           </FormItem>
           <FormItem label="Password" htmlFor="sign-up-modal-password">
             <Input 
+              name="password"
               value={data.password}
-              onChange={(event) => this.handleDataChange('password', event.target.value)}
-              type="password" id="sign-up-modal-password" />
+              onChange={this.handleDataChange}
+              type="password" 
+              id="sign-up-modal-password" 
+            />
+            {/* <Error>{error.password}</Error> */}
           </FormItem>
           <FormItem label="Confirm password" htmlFor="sign-up-modal-confirm-password">
             <Input 
+              name="confirmPassword"
               value={data.confirmPassword}
-              onChange={(event) => this.handleDataChange('confirmPassword', event.target.value)}
-              type="password" id="sign-up-modal-confirm-password" />
+              onChange={this.handleDataChange}
+              type="password" 
+              id="sign-up-modal-confirm-password" 
+            />
+            {/* <Error>{error.confirmPassword}</Error> */}
           </FormItem>
           <SignUpButton size="md" variant="success">
             Join Airtasker

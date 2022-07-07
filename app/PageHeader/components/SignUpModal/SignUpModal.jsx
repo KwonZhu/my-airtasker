@@ -25,6 +25,34 @@ const Error = styled.div`
   color: rgb(231, 82, 69);
 
 `;
+
+const validate = (key, value) => { //put it outside of class because it does not need 'this'
+  switch (key) {
+    case 'email': {
+      if (!value) {
+        return 'Please input your email'
+      }
+      // if (isNotEmailValid(value)) {
+      //   return 'Please enter a valid email'
+      // }
+      return '';
+    };
+    case 'password': {
+      if (!value) {
+        return 'Please input your password'
+      }
+      return '';
+    };
+    case 'confirmPassword': {
+      if (!value) {
+        return 'Please input your confirm password'
+      }
+      return '';
+    }
+    default: 
+      return '';
+  }
+}
 class SignUpModal extends React.Component {
   constructor(props) {
     super(props);
@@ -41,7 +69,7 @@ class SignUpModal extends React.Component {
     this.handleDataChange = this.handleDataChange.bind(this);
     this.handleErrorChange = this.handleErrorChange.bind(this);
   }
-  handleErrorChange(key, errorMsg) {
+  handleErrorChange(key, errorMsg) { //errorMsg comes from validate()
     this.setState((prevState) => ({
       error: {
         ...prevState.error,
@@ -52,8 +80,10 @@ class SignUpModal extends React.Component {
 
   handleDataChange(event) {
     const { name, value } = event.target;
+
+    const errorMsg = validate(name, value);
     
-    this.handleErrorChange(name, 'Please enter a valid email');
+    this.handleErrorChange(name, errorMsg);
     this.setState((prevState) => ({ 
       data: {
         ...prevState.data,
@@ -92,7 +122,7 @@ class SignUpModal extends React.Component {
               type="password" 
               id="sign-up-modal-password" 
             />
-            {/* <Error>{error.password}</Error> */}
+            <Error>{error.password}</Error>
           </FormItem>
           <FormItem label="Confirm password" htmlFor="sign-up-modal-confirm-password">
             <Input 
@@ -102,7 +132,7 @@ class SignUpModal extends React.Component {
               type="password" 
               id="sign-up-modal-confirm-password" 
             />
-            {/* <Error>{error.confirmPassword}</Error> */}
+            <Error>{error.confirmPassword}</Error>
           </FormItem>
           <SignUpButton size="md" variant="success">
             Join Airtasker

@@ -30,22 +30,26 @@ const validate = (key, value) => { //put it outside of class because it does not
   switch (key) {
     case 'email': {
       if (!value) {
-        return 'Please input your email'
+        return 'Please input your email';
       }
-      // if (isNotEmailValid(value)) {
-      //   return 'Please enter a valid email'
-      // }
+      const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,})$/;
+      if (!EMAIL_REGEXP.test(value)) {
+        return 'Please enter a valid email';
+      }
       return '';
     };
     case 'password': {
       if (!value) {
-        return 'Please input your password'
+        return 'Please input your password';
+      }
+      if (value.length < 8 || value.length > 16) {
+        return 'Please enter an 8 to 16 characters password';
       }
       return '';
     };
     case 'confirmPassword': {
       if (!value) {
-        return 'Please input your confirm password'
+        return 'Please input your confirm password';
       }
       return '';
     }
@@ -110,6 +114,7 @@ class SignUpModal extends React.Component {
               name="email" //event.target.name
               value={data.email} //initial value
               onChange={this.handleDataChange} //Triggered when value(input) change
+              error={error.email} //Input border-color change when error occurs(/not '') => props.error && css`...`
               id="sign-up-modal-email" 
             />
             <Error>{error.email}</Error>
@@ -120,6 +125,7 @@ class SignUpModal extends React.Component {
               value={data.password}
               onChange={this.handleDataChange}
               type="password" 
+              error={error.password}
               id="sign-up-modal-password" 
             />
             <Error>{error.password}</Error>
@@ -129,7 +135,8 @@ class SignUpModal extends React.Component {
               name="confirmPassword"
               value={data.confirmPassword}
               onChange={this.handleDataChange}
-              type="password" 
+              type="password"
+              error={error.confirmPassword}
               id="sign-up-modal-confirm-password" 
             />
             <Error>{error.confirmPassword}</Error>

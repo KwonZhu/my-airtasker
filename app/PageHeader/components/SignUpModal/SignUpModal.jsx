@@ -26,7 +26,8 @@ const Error = styled.div`
 
 `;
 
-const validate = (key, value) => { //put it outside of class because it does not need 'this'
+const validate = (key, data) => { //put it outside of class because it does not need 'this'
+  const value = data[key];
   switch (key) {
     case 'email': {
       if (!value) {
@@ -50,6 +51,9 @@ const validate = (key, value) => { //put it outside of class because it does not
     case 'confirmPassword': {
       if (!value) {
         return 'Please input your confirm password';
+      }
+      if (value !== data.password) {
+        return 'Confirm password dose not match to password';
       }
       return '';
     }
@@ -85,15 +89,16 @@ class SignUpModal extends React.Component {
   handleDataChange(event) {
     const { name, value } = event.target;
 
-    const errorMsg = validate(name, value);
-    
-    this.handleErrorChange(name, errorMsg);
     this.setState((prevState) => ({ 
       data: {
         ...prevState.data,
         [name]: value,
       },
-    })); 
+    }), () => { //callback. Once setState succeed, use new data to do validation
+      const { data } = this.state;
+      const errorMsg = validate(name, data);
+      this.handleErrorChange(name, errorMsg);
+    });  
   }
 
   render() {

@@ -23,12 +23,11 @@ const Error = styled.div`
   letter-spacing: 0.25px;
   margin-top: 4px;
   color: rgb(231, 82, 69);
-
 `;
 
-const validate = (key, data) => { //put it outside of class because it does not need 'this'
-  const value = data[key];
-  switch (key) {
+const validate = (name, data) => { //put it outside of class because it does not need 'this'
+  const value = data[name];
+  switch (name) {
     case 'email': {
       if (!value) {
         return 'Please input your email';
@@ -64,26 +63,14 @@ const validate = (key, data) => { //put it outside of class because it does not 
 class SignUpModal extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       data: {
         email: '',
         password: '',
         confirmPassword: '',
       },
-      error: {},
     }
-
     this.handleDataChange = this.handleDataChange.bind(this);
-    this.handleErrorChange = this.handleErrorChange.bind(this);
-  }
-  handleErrorChange(key, errorMsg) { //errorMsg comes from validate()
-    this.setState((prevState) => ({
-      error: {
-        ...prevState.error,
-        [key]: errorMsg,
-      },
-    }));
   }
 
   handleDataChange(event) {
@@ -94,16 +81,34 @@ class SignUpModal extends React.Component {
         ...prevState.data,
         [name]: value,
       },
-    }), () => { //callback. Once setState succeed, use new data to do validation
-      const { data } = this.state;
-      const errorMsg = validate(name, data);
-      this.handleErrorChange(name, errorMsg);
-    });  
+    }));  
+  }
+
+  // Derived state
+  validate() {
+    const {data} = this.state;
+    const error = {};
+
+    //validate every data.name, once fail get errorMsg -> error[key] = errorMsg;
+    
+    //Object.keys() returns an array of a given object's own enumerable property names
+    Object.keys(data).forEach((name) =>{ // for each name in name array
+      const errorOfName = validate(name, data);
+
+      if(!errorOfName) {
+        return;
+      };
+      error[name] = errorOfName;
+    });
+
+    return error;
   }
 
   render() {
     const { closeModal } = this.props;
-    const { data, error } = this.state;
+    const { data } = this.state; //error is no longer a state, so no need in here
+
+    const error = this.validate(data);
     return (
       <Modal onClose={closeModal}>
         <Title>Join Us</Title>
@@ -116,10 +121,10 @@ class SignUpModal extends React.Component {
         >
           <FormItem label="Email" htmlFor="sign-up-modal-email">
             <Input 
-              name="email" //event.target.name
+              name="email" //event.target.name. use name as a key to distinguish these 3 Input
               value={data.email} //initial value
               onChange={this.handleDataChange} //Triggered when value(input) change
-              error={error.email} //Input border-color change when error occurs(/not '') => props.error && css`...`
+              error={error.email} //Input border-color change when error occurs(not '') => props.error && css`...`
               id="sign-up-modal-email" 
             />
             <Error>{error.email}</Error>

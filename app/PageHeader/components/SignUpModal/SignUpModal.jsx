@@ -69,8 +69,18 @@ class SignUpModal extends React.Component {
         password: '',
         confirmPassword: '',
       },
+      touched: {
+        email: false,
+        password: false,
+        confirmPassword: false,
+      },
+      // 思考要创建一个什么样的state
+      // 1. 叫什么 2. 什么时候被设置 3. 怎么被使用
+      // 但凡回答出1个，就能知道要创建一个什么样的state
+      isFormSubmit: false,
     }
     this.handleDataChange = this.handleDataChange.bind(this);
+    this.handleIsFormSubmitChange = this.handleIsFormSubmitChange.bind(this);
   }
 
   handleDataChange(event) {
@@ -81,7 +91,17 @@ class SignUpModal extends React.Component {
         ...prevState.data,
         [name]: value,
       },
+      touched: { //once data is changed, mark it as touched
+        ...prevState.touched,
+        [name]: true,
+       },
     }));  
+  }
+
+  handleIsFormSubmitChange(newIsFormSubmit) {
+    this.setState({
+      isFormSubmit: newIsFormSubmit,
+    });
   }
 
   // Derived state
@@ -106,9 +126,11 @@ class SignUpModal extends React.Component {
 
   render() {
     const { closeModal } = this.props;
-    const { data } = this.state; //error is no longer a state, so no need in here
-
+    const { data, touched, isFormSubmit } = this.state;
     const error = this.validate(data);
+
+    // derived: data -> error -> invalidateForm
+    const invalidForm = Object.keys(error).length > 0;
     return (
       <Modal onClose={closeModal}>
         <Title>Join Us</Title>
@@ -116,6 +138,11 @@ class SignUpModal extends React.Component {
         <Form
           onSubmit={(event) => {
             event.preventDefault();
+            this.handleIsFormSubmitChange(true);
+            if (invalidForm) {
+              console.log('Form has error');
+              return;
+            }
             console.log('state', this.state);
           }}
         >
@@ -124,10 +151,10 @@ class SignUpModal extends React.Component {
               name="email" //event.target.name. use name as a key to distinguish these 3 Input
               value={data.email} //initial value
               onChange={this.handleDataChange} //Triggered when value(input) change
-              error={error.email} //Input border-color change when error occurs(not '') => props.error && css`...`
+              error={(touched.email|| isFormSubmit) && error.email} //Input border-color change when error occurs(error is not '') => props.error && css`...`
               id="sign-up-modal-email" 
             />
-            <Error>{error.email}</Error>
+            <Error>{(touched.email || isFormSubmit) && error.email}</Error>
           </FormItem>
           <FormItem label="Password" htmlFor="sign-up-modal-password">
             <Input 
@@ -135,10 +162,10 @@ class SignUpModal extends React.Component {
               value={data.password}
               onChange={this.handleDataChange}
               type="password" 
-              error={error.password}
+              error={(touched.password || isFormSubmit) && error.password}
               id="sign-up-modal-password" 
             />
-            <Error>{error.password}</Error>
+            <Error>{(touched.password || isFormSubmit) && error.password}</Error>
           </FormItem>
           <FormItem label="Confirm password" htmlFor="sign-up-modal-confirm-password">
             <Input 
@@ -146,10 +173,10 @@ class SignUpModal extends React.Component {
               value={data.confirmPassword}
               onChange={this.handleDataChange}
               type="password"
-              error={error.confirmPassword}
+              error={(touched.confirmPassword || isFormSubmit) && error.confirmPassword}
               id="sign-up-modal-confirm-password" 
             />
-            <Error>{error.confirmPassword}</Error>
+            <Error>{(touched.confirmPassword || isFormSubmit) && error.confirmPassword}</Error>
           </FormItem>
           <SignUpButton size="md" variant="success">
             Join Airtasker

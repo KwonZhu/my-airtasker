@@ -74,13 +74,27 @@ class SignUpModal extends React.Component {
         password: false,
         confirmPassword: false,
       },
-      // 思考要创建一个什么样的state
-      // 1. 叫什么 2. 什么时候被设置 3. 怎么被使用
-      // 但凡回答出1个，就能知道要创建一个什么样的state
       isFormSubmit: false,
+      blurred: {
+        email: false,
+        password: false,
+        confirmPassword: false,
+      }
     }
     this.handleDataChange = this.handleDataChange.bind(this);
     this.handleIsFormSubmitChange = this.handleIsFormSubmitChange.bind(this);
+    this.handleBlurredChange = this.handleBlurredChange.bind(this);
+  }
+
+  handleBlurredChange(event) {
+    const { name } = event.target; // onBlur dose not need value
+
+    this.setState((prevState) => ({ 
+      blurred: {
+        ...prevState.blurred,
+        [name]: true,
+      },
+    }));  
   }
 
   handleDataChange(event) {
@@ -126,7 +140,7 @@ class SignUpModal extends React.Component {
 
   render() {
     const { closeModal } = this.props;
-    const { data, touched, isFormSubmit } = this.state;
+    const { data, touched, isFormSubmit, blurred } = this.state;
     const error = this.validate(data);
 
     // derived: data -> error -> invalidateForm
@@ -151,32 +165,35 @@ class SignUpModal extends React.Component {
               name="email" //event.target.name. use name as a key to distinguish these 3 Input
               value={data.email} //initial value
               onChange={this.handleDataChange} //Triggered when value(input) change
-              error={(touched.email && isFormSubmit) && error.email} //Input border-color change when error occurs(error is not '') => props.error && css`...`
+              onBlur={this.handleBlurredChange} //Triggered when Input loses focus
+              error={(blurred.email || isFormSubmit) && error.email} //Input border-color change when error occurs(error is not '') => props.error && css`...`
               id="sign-up-modal-email" 
             />
-            <Error>{(touched.email && isFormSubmit) && error.email}</Error>
+            <Error>{(blurred.email || isFormSubmit) && error.email}</Error>
           </FormItem>
           <FormItem label="Password" htmlFor="sign-up-modal-password">
             <Input 
               name="password"
               value={data.password}
               onChange={this.handleDataChange}
+              onBlur={this.handleBlurredChange}
               type="password" 
-              error={(touched.password && isFormSubmit) && error.password}
+              error={(blurred.password || isFormSubmit) && error.password}
               id="sign-up-modal-password" 
             />
-            <Error>{(touched.password && isFormSubmit) && error.password}</Error>
+            <Error>{(blurred.password || isFormSubmit) && error.password}</Error>
           </FormItem>
           <FormItem label="Confirm password" htmlFor="sign-up-modal-confirm-password">
             <Input 
               name="confirmPassword"
               value={data.confirmPassword}
               onChange={this.handleDataChange}
+              onBlur={this.handleBlurredChange}
               type="password"
-              error={(touched.confirmPassword && isFormSubmit) && error.confirmPassword}
+              error={(blurred.confirmPassword || isFormSubmit) && error.confirmPassword}
               id="sign-up-modal-confirm-password" 
             />
-            <Error>{(touched.confirmPassword && isFormSubmit) && error.confirmPassword}</Error>
+            <Error>{(blurred.confirmPassword || isFormSubmit) && error.confirmPassword}</Error>
           </FormItem>
           <SignUpButton size="md" variant="success">
             Join Airtasker

@@ -42,10 +42,10 @@ const validate = (name, data) => { //put it outside of class because it does not
       if (!value) {
         return 'Please input your password';
       }
-      if (value.length < 8 || value.length > 16) {
+      if (value.toString().length < 8 || value.toString().length > 16) {
         return 'Please enter an 8 to 16 characters password';
       }
-      return '';
+      return 'Password must be between 8 to 16 characters';
     };
     case 'confirmPassword': {
       if (!value) {
@@ -151,10 +151,10 @@ class SignUpModal extends React.Component {
               name="email" //event.target.name. use name as a key to distinguish these 3 Input
               value={data.email} //initial value
               onChange={this.handleDataChange} //Triggered when value(input) change
-              error={(touched.email|| isFormSubmit) && error.email} //Input border-color change when error occurs(error is not '') => props.error && css`...`
+              error={(touched.email && isFormSubmit) && error.email} //Input border-color change when error occurs(error is not '') => props.error && css`...`
               id="sign-up-modal-email" 
             />
-            <Error>{(touched.email || isFormSubmit) && error.email}</Error>
+            <Error>{(touched.email && isFormSubmit) && error.email}</Error>
           </FormItem>
           <FormItem label="Password" htmlFor="sign-up-modal-password">
             <Input 
@@ -162,10 +162,10 @@ class SignUpModal extends React.Component {
               value={data.password}
               onChange={this.handleDataChange}
               type="password" 
-              error={(touched.password || isFormSubmit) && error.password}
+              error={(touched.password && isFormSubmit) && error.password}
               id="sign-up-modal-password" 
             />
-            <Error>{(touched.password || isFormSubmit) && error.password}</Error>
+            <Error>{(touched.password && isFormSubmit) && error.password}</Error>
           </FormItem>
           <FormItem label="Confirm password" htmlFor="sign-up-modal-confirm-password">
             <Input 
@@ -173,10 +173,10 @@ class SignUpModal extends React.Component {
               value={data.confirmPassword}
               onChange={this.handleDataChange}
               type="password"
-              error={(touched.confirmPassword || isFormSubmit) && error.confirmPassword}
+              error={(touched.confirmPassword && isFormSubmit) && error.confirmPassword}
               id="sign-up-modal-confirm-password" 
             />
-            <Error>{(touched.confirmPassword || isFormSubmit) && error.confirmPassword}</Error>
+            <Error>{(touched.confirmPassword && isFormSubmit) && error.confirmPassword}</Error>
           </FormItem>
           <SignUpButton size="md" variant="success">
             Join Airtasker

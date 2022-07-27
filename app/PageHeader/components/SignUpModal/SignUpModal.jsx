@@ -65,21 +65,23 @@ class SignUpModal extends React.Component {
     super(props);
     this.state = {
       data: {
-        email: '',
-        password: '',
-        confirmPassword: '',
-      },
-      touched: {
-        email: false,
-        password: false,
-        confirmPassword: false,
+        email: {
+          value: '',
+          touched: false,
+          blurred: false,
+        },
+        password: {
+          value: '',
+          touched: false,
+          blurred: false,
+        },
+        confirmPassword: {
+          value: '',
+          touched: false,
+          blurred: false,
+        },
       },
       isFormSubmit: false,
-      blurred: {
-        email: false,
-        password: false,
-        confirmPassword: false,
-      }
     }
     this.handleDataChange = this.handleDataChange.bind(this);
     this.handleIsFormSubmitChange = this.handleIsFormSubmitChange.bind(this);
@@ -90,9 +92,12 @@ class SignUpModal extends React.Component {
     const { name } = event.target; // onBlur dose not need value
 
     this.setState((prevState) => ({ 
-      blurred: {
-        ...prevState.blurred,
-        [name]: true,
+      data: {
+        ...prevState.data,
+        [name]: {
+          ...prevState.data[name],
+          blurred: true,
+        },
       },
     }));  
   }
@@ -103,12 +108,12 @@ class SignUpModal extends React.Component {
     this.setState((prevState) => ({ 
       data: {
         ...prevState.data,
-        [name]: value,
+        [name]: {
+          ...prevState.data[name],
+          value,
+          touched: true,
+        },
       },
-      touched: { //once data is changed, mark it as touched
-        ...prevState.touched,
-        [name]: true,
-       },
     }));  
   }
 
@@ -138,10 +143,16 @@ class SignUpModal extends React.Component {
     return error;
   }
 
+  // optimize the duplicate code {(blurred.xxx || isFormSubmit) && error.xxx}
+  showErrorMessage(error, name) {
+    const { data, isFormSubmit } = this.state;
+    return (data[name].blurred || isFormSubmit) && error[name];
+  }
+
   render() {
     const { closeModal } = this.props;
     const { data, touched, isFormSubmit, blurred } = this.state;
-    const error = this.validate(data);
+    const error = this.validate();
 
     // derived: data -> error -> invalidateForm
     const invalidForm = Object.keys(error).length > 0;
@@ -163,37 +174,37 @@ class SignUpModal extends React.Component {
           <FormItem label="Email" htmlFor="sign-up-modal-email">
             <Input 
               name="email" //event.target.name. use name as a key to distinguish these 3 Input
-              value={data.email} //initial value
+              value={data.email.value} //initial value
               onChange={this.handleDataChange} //Triggered when value(input) change
               onBlur={this.handleBlurredChange} //Triggered when Input loses focus
-              error={(blurred.email || isFormSubmit) && error.email} //Input border-color change when error occurs(error is not '') => props.error && css`...`
+              error={this.showErrorMessage(error, 'email')} //Input border-color change when error occurs(error is not '') => props.error && css`...`
               id="sign-up-modal-email" 
             />
-            <Error>{(blurred.email || isFormSubmit) && error.email}</Error>
+            <Error>{this.showErrorMessage(error, 'email')}</Error>
           </FormItem>
           <FormItem label="Password" htmlFor="sign-up-modal-password">
             <Input 
               name="password"
-              value={data.password}
+              value={data.password.value}
               onChange={this.handleDataChange}
               onBlur={this.handleBlurredChange}
               type="password" 
-              error={(blurred.password || isFormSubmit) && error.password}
+              error={this.showErrorMessage(error, 'password')}
               id="sign-up-modal-password" 
             />
-            <Error>{(blurred.password || isFormSubmit) && error.password}</Error>
+            <Error>{this.showErrorMessage(error, 'password')}</Error>
           </FormItem>
           <FormItem label="Confirm password" htmlFor="sign-up-modal-confirm-password">
             <Input 
               name="confirmPassword"
-              value={data.confirmPassword}
+              value={data.confirmPassword.value}
               onChange={this.handleDataChange}
               onBlur={this.handleBlurredChange}
               type="password"
-              error={(blurred.confirmPassword || isFormSubmit) && error.confirmPassword}
+              error={this.showErrorMessage(error, 'confirmPassword')}
               id="sign-up-modal-confirm-password" 
             />
-            <Error>{(blurred.confirmPassword || isFormSubmit) && error.confirmPassword}</Error>
+            <Error>{this.showErrorMessage(error, 'confirmPassword')}</Error>
           </FormItem>
           <SignUpButton size="md" variant="success">
             Join Airtasker

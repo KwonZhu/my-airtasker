@@ -45,7 +45,6 @@ const validate = (name, data) => { //put it outside of class because it does not
       if (value.toString().length < 8 || value.toString().length > 16) {
         return 'Please enter an 8 to 16 characters password';
       }
-      return 'Password must be between 8 to 16 characters';
     };
     case 'confirmPassword': {
       if (!value) {
@@ -60,32 +59,42 @@ const validate = (name, data) => { //put it outside of class because it does not
       return '';
   }
 }
+
+const initialData = { 
+  value: '',
+  touched: false,
+  blurred: false,
+  focused: false,
+};
 class SignUpModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: {
-        email: {
-          value: '',
-          touched: false,
-          blurred: false,
-        },
-        password: {
-          value: '',
-          touched: false,
-          blurred: false,
-        },
-        confirmPassword: {
-          value: '',
-          touched: false,
-          blurred: false,
-        },
+        email: initialData,
+        password: initialData,
+        confirmPassword: initialData,
       },
       isFormSubmit: false,
     }
     this.handleDataChange = this.handleDataChange.bind(this);
     this.handleIsFormSubmitChange = this.handleIsFormSubmitChange.bind(this);
     this.handleBlurredChange = this.handleBlurredChange.bind(this);
+    this.handleFocusedChange = this.handleFocusedChange.bind(this);
+  }
+
+  handleFocusedChange(event) { //similar to handleBlurredChange
+    const { name } = event.target; // onFocus dose not need value
+
+    this.setState((prevState) => ({ 
+      data: {
+        ...prevState.data,
+        [name]: {
+          ...prevState.data[name],
+          focused: true,
+        },
+      },
+    }));  
   }
 
   handleBlurredChange(event) {
@@ -97,6 +106,7 @@ class SignUpModal extends React.Component {
         [name]: {
           ...prevState.data[name],
           blurred: true,
+          focused: false, //onBlur 和 onFocus 是互斥的
         },
       },
     }));  
@@ -146,12 +156,13 @@ class SignUpModal extends React.Component {
   // optimize the duplicate code {(blurred.xxx || isFormSubmit) && error.xxx}
   showErrorMessage(error, name) {
     const { data, isFormSubmit } = this.state;
-    return (data[name].blurred || isFormSubmit) && error[name];
+    const showInputError = data[name].blurred && ! data[name].focused;
+    return (showInputError || isFormSubmit) && error[name];
   }
 
   render() {
     const { closeModal } = this.props;
-    const { data, touched, isFormSubmit, blurred } = this.state;
+    const { data } = this.state;
     const error = this.validate();
 
     // derived: data -> error -> invalidateForm
@@ -175,8 +186,9 @@ class SignUpModal extends React.Component {
             <Input 
               name="email" //event.target.name. use name as a key to distinguish these 3 Input
               value={data.email.value} //initial value
-              onChange={this.handleDataChange} //Triggered when value(input) change
-              onBlur={this.handleBlurredChange} //Triggered when Input loses focus
+              onChange={this.handleDataChange} //occurs when value(input) change
+              onFocus={this.handleFocusedChange} //occurs when Input gets focus
+              onBlur={this.handleBlurredChange} //occurs when Input loses focus
               error={this.showErrorMessage(error, 'email')} //Input border-color change when error occurs(error is not '') => props.error && css`...`
               id="sign-up-modal-email" 
             />
@@ -187,6 +199,7 @@ class SignUpModal extends React.Component {
               name="password"
               value={data.password.value}
               onChange={this.handleDataChange}
+              onFocus={this.handleFocusedChange}
               onBlur={this.handleBlurredChange}
               type="password" 
               error={this.showErrorMessage(error, 'password')}
@@ -199,6 +212,7 @@ class SignUpModal extends React.Component {
               name="confirmPassword"
               value={data.confirmPassword.value}
               onChange={this.handleDataChange}
+              onFocus={this.handleFocusedChange}
               onBlur={this.handleBlurredChange}
               type="password"
               error={this.showErrorMessage(error, 'confirmPassword')}

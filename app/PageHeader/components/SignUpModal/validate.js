@@ -1,6 +1,6 @@
 const validate = (name, data) => { // put it outside of SignUpModal class because it does not need 'this'
                                    // put it outside of SignUpModal.jsx to simplify SignUpModal.jsx
-  const value = data[name];
+  const { value } = data[name];
   switch (name) {
     case 'email': {
       if (!value) {

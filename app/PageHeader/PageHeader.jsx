@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import Button from '../../components/Button'
 import Modal, { CloseButton } from '../../components/Modal';
-import SignUPModal from '../PageHeader/components/SignUpModal'
+import SignUPModal from './components/SignUpModal';
 import NakedButton from '../../components/NakedButton';
+import LogInModal from './components/LogInModal';
 
 const Wrapper = styled.div`
   margin-bottom: -60px; //overlap between background img and PageHeader
@@ -50,7 +51,7 @@ const Left = styled.div`
 const Right = styled.div`
   display: flex;
   align-items: center; //Become a Tasker alignment
-  margin-left: auto; //separate Left and Right
+  margin-left: auto; //left will take all the space. separate Left and Right
 `;
 
 class PageHeader extends React.Component {
@@ -105,8 +106,8 @@ class PageHeader extends React.Component {
               </Modal>
             )}
             <MenuItem>Categories</MenuItem>
-            <MenuItem as='a'>Browse tasks</MenuItem> {/* render as a <a> tag instead of a <div> */}
-            <MenuItem as='a'>How it works</MenuItem>
+            <MenuItem as="a">Browse tasks</MenuItem> {/* render as a <a> tag instead of a <div> */}
+            <MenuItem as="a">How it works</MenuItem>
           </Left>
           <Right>
             {JSON.stringify(user)}
@@ -124,10 +125,9 @@ class PageHeader extends React.Component {
               Log in
             </MenuItem>
              {showModal === 'logIn' && (
-              <Modal onClose={this.closeModal}>
-                <CloseButton onClick={this.closeModal} />
-                Log in
-              </Modal>
+              <LogInModal 
+                closeModal={this.closeModal} 
+              />
             )}
             <Button size="sm" variant="transparent">Become a Tasker</Button>
           </Right>

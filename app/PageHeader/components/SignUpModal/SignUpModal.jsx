@@ -7,7 +7,7 @@ import FormItem from '../../../../components/FormItem';
 import validate from './validate';
 import ErrorMessage from '../../../../components/ErrorMessage';
 
-const Form = styled.form``;
+const Wrapper = styled.form``;
 
 const Title = styled.div`
   font-size: 18px;
@@ -86,8 +86,8 @@ class SignUpModal extends React.Component {
     });
   }
 
-  // Derived state
-  validate() {
+  // Derived state: date -> error
+  getError() {
     const {data} = this.state;
     const error = {};
 
@@ -95,7 +95,7 @@ class SignUpModal extends React.Component {
     
     //Object.keys() returns an array of a given object's own enumerable property names
     Object.keys(data).forEach((name) =>{ // for each name in name array
-      const errorOfName = validate(name, data);
+      const errorOfName = validate(name, data); // validate.js
 
       if(!errorOfName) {
         return;
@@ -116,7 +116,7 @@ class SignUpModal extends React.Component {
   render() {
     const { closeModal } = this.props;
     const { data } = this.state;
-    const error = this.validate();
+    const error = this.getError();
 
     // derived: data -> error -> invalidateForm
     const invalidForm = Object.keys(error).length > 0;
@@ -124,7 +124,7 @@ class SignUpModal extends React.Component {
       <Modal onClose={closeModal}>
         <Title>Join Us</Title>
         <CloseButton onClick={closeModal} />
-        <Form
+        <Wrapper
           onSubmit={(event) => {
             event.preventDefault();
             this.handleIsFormSubmitChange(true);
@@ -156,7 +156,7 @@ class SignUpModal extends React.Component {
           <SignUpButton size="md" variant="success">
             Join Airtasker
           </SignUpButton>
-        </Form>
+        </Wrapper>
       </Modal>
     )
   }

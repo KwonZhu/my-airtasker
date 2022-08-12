@@ -120,7 +120,7 @@ class SignUpModal extends React.Component {
     const { data } = this.state;
     const error = this.getError();
 
-    // derived: data -> error -> invalidateForm
+    // derived: data -> error -> invalidForm
     const invalidForm = Object.keys(error).length > 0;
     return (
       <Modal onClose={closeModal}>

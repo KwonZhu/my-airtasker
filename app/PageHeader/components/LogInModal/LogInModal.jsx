@@ -4,9 +4,8 @@ import Modal, { CloseButton } from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 import Input from "../../../../components/Input";
 import FormItem from "../../../../components/FormItem";
-import validate from "./validate";
 import ErrorMessage from "../../../../components/ErrorMessage";
-import withForm from "../../../../components/Form";
+import withLogInForm from "../../../withLogInForm";
 
 const Wrapper = styled.form``;
 
@@ -71,12 +70,5 @@ const LogInModal = ({
 );
 
 // Call function withForm, also pass names and validate.
-// Once class Form finished set up, pass all props to LogInModal
-// Then LogInModal will get and use all props
-export default withForm(
-  {
-    names: ["email", "password"],
-    validate,
-  },
-  LogInModal
-);
+// Then cal LogInModal
+export default withLogInForm(LogInModal);

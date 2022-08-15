@@ -5,7 +5,7 @@ import Button from "../../../../components/Button";
 import Input from "../../../../components/Input";
 import FormItem from "../../../../components/FormItem";
 import ErrorMessage from "../../../../components/ErrorMessage";
-import withLogInForm from "../../../withLogInForm";
+import withLogInForm from "../withLogInForm";
 
 const Wrapper = styled.form``;
 
@@ -46,12 +46,13 @@ const LogInModal = ({
       }}
     >
       {[
-        { key: "email", label: "Email" },
-        { key: "password", label: "Password" },
-      ].map(({ key, label }) => (
+        { key: "email", label: "Email", type: "text" },
+        { key: "password", label: "Password", type: "password" },
+      ].map(({ key, label, type }) => (
         <FormItem key={key} label={label} htmlFor={`log-in-modal-${key}`}>
           <Input
             name={key} //event.target.name. use name as a key to distinguish these 3 Input
+            type={type}
             value={data[key].value} //initial value
             onChange={handleDataChange} //occurs when value(input) change
             onFocus={handleFocusedChange} //occurs when Input gets focus

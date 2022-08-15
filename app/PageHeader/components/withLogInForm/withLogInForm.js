@@ -1,4 +1,4 @@
-import withForm from "../../components/withForm";
+import withForm from "../../../../components/withForm";
 import validate from "./validate";
 
 const withLogInForm = withForm({

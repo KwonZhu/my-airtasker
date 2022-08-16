@@ -22,6 +22,7 @@ const LogInButton = styled(Button)`
 const LogInModal = ({
   // const { closeModal } = this.props in render when LogInModal was a class
   closeModal,
+  onLogIn,
   data,
   error,
   handleIsFormSubmitChange,
@@ -42,7 +43,9 @@ const LogInModal = ({
           console.log("Form has error");
           return;
         }
-        console.log("state", data);
+        onLogIn({
+          email: data.email, //user: newUser
+        });
       }}
     >
       {[

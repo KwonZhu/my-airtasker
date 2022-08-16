@@ -74,7 +74,6 @@ class PageHeader extends React.Component {
       showModal: newShowModal,
     });
   }
-
   // handleSignUpOnClick() {
   //   this.setState({
   //     showModal: true,
@@ -93,6 +92,8 @@ class PageHeader extends React.Component {
 
   render() {
     const { showModal, user } = this.state;
+
+    console.log(user);
 
     return (
       <Wrapper>
@@ -117,7 +118,6 @@ class PageHeader extends React.Component {
             <MenuItem as="a">How it works</MenuItem>
           </Left>
           <Right>
-            {JSON.stringify(user)}
             <MenuItem
               as={NakedButton}
               onClick={() => this.handleShowModalChange("signUp")}
@@ -126,10 +126,7 @@ class PageHeader extends React.Component {
             </MenuItem>
             {/* <=> <MenuItem onClick={this.handleSignUpOnClick}>Sign up</MenuItem> */}
             {showModal === "signUp" && (
-              <SignUPModal
-                closeModal={this.closeModal}
-                onSignUp={(data) => this.handleUserChange(data)}
-              />
+              <SignUPModal closeModal={this.closeModal} />
             )}
             <MenuItem
               as={NakedButton}
@@ -138,7 +135,10 @@ class PageHeader extends React.Component {
               Log in
             </MenuItem>
             {showModal === "logIn" && (
-              <LogInModal closeModal={this.closeModal} />
+              <LogInModal
+                closeModal={this.closeModal}
+                onLogIn={this.handleUserChange}
+              />
             )}
             <Button size="sm" variant="transparent">
               Become a Tasker

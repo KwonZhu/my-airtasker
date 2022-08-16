@@ -44,7 +44,7 @@ const LogInModal = ({
           return;
         }
         onLogIn({
-          email: data.email, //user: newUser
+          email: data.email.value, //user: newUser
         });
       }}
     >

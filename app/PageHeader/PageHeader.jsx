@@ -93,8 +93,11 @@ class PageHeader extends React.Component {
   render() {
     const { showModal, user } = this.state;
 
-    console.log(user);
-
+    // jsx -> html -> DOM -> tree view -> root
+    // 所以 jsx 是 tree view 结构
+    // 而 tree view 最最重要的是 root
+    // 所以 jsx 有 root 的概念
+    // 根 有且唯一
     return (
       <Wrapper>
         <Container>
@@ -113,32 +116,44 @@ class PageHeader extends React.Component {
               </Modal>
             )}
             <MenuItem>Categories</MenuItem>
-            <MenuItem as="a">Browse tasks</MenuItem>{" "}
+            <MenuItem as="a">Browse tasks</MenuItem>
             {/* render as a <a> tag instead of a <div> */}
             <MenuItem as="a">How it works</MenuItem>
           </Left>
           <Right>
-            <MenuItem
-              as={NakedButton}
-              onClick={() => this.handleShowModalChange("signUp")}
-            >
-              Sign up
-            </MenuItem>
-            {/* <=> <MenuItem onClick={this.handleSignUpOnClick}>Sign up</MenuItem> */}
-            {showModal === "signUp" && (
-              <SignUPModal closeModal={this.closeModal} />
-            )}
-            <MenuItem
-              as={NakedButton}
-              onClick={() => this.handleShowModalChange("logIn")}
-            >
-              Log in
-            </MenuItem>
-            {showModal === "logIn" && (
-              <LogInModal
-                closeModal={this.closeModal}
-                onLogIn={this.handleUserChange}
-              />
+            {user ? (
+              <MenuItem>{user.email}</MenuItem>
+            ) : (
+              // <React.Fragment>or<> is used to fix missing parent element problem in Ternary Expression
+              <React.Fragment>
+                <MenuItem
+                  as={NakedButton}
+                  onClick={() => this.handleShowModalChange("signUp")}
+                >
+                  Sign up
+                </MenuItem>
+                {/* <=> <MenuItem onClick={this.handleSignUpOnClick}>Sign up</MenuItem> */}
+                {showModal === "signUp" && (
+                  <SignUPModal closeModal={this.closeModal} />
+                )}
+                <MenuItem
+                  as={NakedButton}
+                  onClick={() => this.handleShowModalChange("logIn")}
+                >
+                  Log in
+                </MenuItem>
+                {showModal === "logIn" && (
+                  <LogInModal
+                    closeModal={this.closeModal}
+                    // onLogIn={(newUser) => this.handleUserChange(newUser)}
+                    // can be simplify to onLogIn={this.handleUserChange}
+                    onLogIn={(newUser) => {
+                      this.handleUserChange(newUser);
+                      this.closeModal(); // In here, '()' is necessary
+                    }}
+                  />
+                )}
+              </React.Fragment>
             )}
             <Button size="sm" variant="transparent">
               Become a Tasker

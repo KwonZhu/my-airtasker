@@ -1,11 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
-import Button from '../../components/Button';
+import React from "react";
+import styled from "styled-components";
+import Button from "../../components/Button";
 
 const Wrapper = styled.div`
   height: calc(100vh - 120px);
   max-height: 650px;
-  background: url('https://www.airtasker.com/images/open-graph/general.jpg');
+  background: url("https://www.airtasker.com/images/open-graph/general.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position-y: 20%;
@@ -30,17 +30,20 @@ const Sub = styled.p`
   line-height: 40px;
 `;
 
-const HomePageBanner = () => (
+const HomePageBanner = ({ user }) => (
   <Wrapper>
     <Container>
-      <Heading>
-        Connect with experts to get the job done on Airtasker
-      </Heading>
-      <Sub>
-        It's amazing what you can't do yourself
-      </Sub>
+      <Heading>Connect with experts to get the job done on Airtasker</Heading>
+      <Sub>It's amazing what you can't do yourself</Sub>
       <p>
-        <Button>Get started now</Button>
+        {/* Ternary Expression */}
+        {user ? (
+          <Button>Get started now</Button>
+        ) : (
+          <>
+            <Button>Log in</Button>
+          </>
+        )}
       </p>
     </Container>
   </Wrapper>

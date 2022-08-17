@@ -60,13 +60,11 @@ class PageHeader extends React.Component {
 
     this.state = {
       showModal: undefined,
-      user: undefined,
     };
     this.handleShowModalChange = this.handleShowModalChange.bind(this);
     // handleShowModalChange <=> handleSignUpOnClick
     // this.handleSignUpOnClick = this.handleSignUpOnClick.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.handleUserChange = this.handleUserChange.bind(this);
   }
 
   handleShowModalChange(newShowModal) {
@@ -84,20 +82,10 @@ class PageHeader extends React.Component {
     this.handleShowModalChange();
   }
 
-  handleUserChange(newUser) {
-    this.setState({
-      user: newUser,
-    });
-  }
-
   render() {
-    const { showModal, user } = this.state;
+    const { user, handleUserChange } = this.props;
+    const { showModal } = this.state;
 
-    // jsx -> html -> DOM -> tree view -> root
-    // 所以 jsx 是 tree view 结构
-    // 而 tree view 最最重要的是 root
-    // 所以 jsx 有 root 的概念
-    // 根 有且唯一
     return (
       <Wrapper>
         <Container>
@@ -148,7 +136,7 @@ class PageHeader extends React.Component {
                     // onLogIn={(newUser) => this.handleUserChange(newUser)}
                     // can be simplify to onLogIn={this.handleUserChange}
                     onLogIn={(newUser) => {
-                      this.handleUserChange(newUser);
+                      handleUserChange(newUser);
                       this.closeModal(); // In here, '()' is necessary
                     }}
                   />

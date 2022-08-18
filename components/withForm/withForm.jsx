@@ -137,4 +137,5 @@ const withForm =  //先调用withForm且传configuration(names, validate)
     }
     return Form;
   };
+
 export default withForm;

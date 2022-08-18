@@ -24,7 +24,7 @@ class App extends React.Component {
     return (
       <div>
         <PageHeader user={user} handleUserChange={this.handleUserChange} />
-        <HomePageBanner user={user} />
+        <HomePageBanner user={user} handleUserChange={this.handleUserChange} />
       </div>
     );
   }

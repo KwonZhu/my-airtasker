@@ -4,7 +4,7 @@ import Button from "../../components/Button";
 import Modal, { CloseButton } from "../../components/Modal";
 import SignUPModal from "./components/SignUpModal";
 import NakedButton from "../../components/NakedButton";
-import LogInModal from "./components/LogInModal";
+import LogInModal from "../LogInModal";
 
 const Wrapper = styled.div`
   margin-bottom: -60px; //overlap between background img and PageHeader

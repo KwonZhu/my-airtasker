@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Button from "../../components/Button";
 import LogInModal from "../LogInModal";
+import withModal from "../../components/withModal";
 
 const Wrapper = styled.div`
   height: calc(100vh - 120px);
@@ -31,64 +32,41 @@ const Sub = styled.p`
   line-height: 40px;
 `;
 
-class HomePageBanner extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      showModal: undefined,
-    };
-    this.handleShowModalChange = this.handleShowModalChange.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-  }
-  handleShowModalChange(newShowModal) {
-    this.setState({
-      showModal: newShowModal,
-    });
-  }
-
-  closeModal() {
-    this.handleShowModalChange();
-  }
-
-  render() {
-    const { user, handleUserChange } = this.props;
-    const { showModal } = this.state;
-
-    return (
-      <Wrapper>
-        <Container>
-          <Heading>
-            Connect with experts to get the job done on Airtasker
-          </Heading>
-          <Sub>It's amazing what you can't do yourself</Sub>
-          <div>
-            {/* Ternary Expression */}
-            {user ? (
-              <Button>Get started now</Button>
-            ) : (
-              <>
-                <Button onClick={() => this.handleShowModalChange("logIn")}>
-                  Log in
-                </Button>
-                {showModal === "logIn" && (
-                  <LogInModal
-                    closeModal={this.closeModal}
-                    // onLogIn={(newUser) => this.handleUserChange(newUser)}
-                    // can be simplify to onLogIn={this.handleUserChange}
-                    onLogIn={(newUser) => {
-                      handleUserChange(newUser);
-                      this.closeModal(); // In here, '()' is necessary
-                    }}
-                  />
-                )}
-              </>
+const HomePageBanner = ({
+  user,
+  handleUserChange,
+  showModal,
+  handleShowModalChange,
+  closeModal,
+}) => (
+  <Wrapper>
+    <Container>
+      <Heading>Connect with experts to get the job done on Airtasker</Heading>
+      <Sub>It's amazing what you can't do yourself</Sub>
+      <div>
+        {/* Ternary Expression */}
+        {user ? (
+          <Button>Get started now</Button>
+        ) : (
+          <>
+            <Button onClick={() => handleShowModalChange("logIn")}>
+              Log in
+            </Button>
+            {showModal === "logIn" && (
+              <LogInModal
+                closeModal={closeModal}
+                // onLogIn={(newUser) => this.handleUserChange(newUser)}
+                // can be simplify to onLogIn={this.handleUserChange}
+                onLogIn={(newUser) => {
+                  handleUserChange(newUser);
+                  closeModal(); // In here, '()' is necessary
+                }}
+              />
             )}
-          </div>
-        </Container>
-      </Wrapper>
-    );
-  }
-}
-
-export default HomePageBanner;
+          </>
+        )}
+      </div>
+    </Container>
+  </Wrapper>
+);
+export default withModal(HomePageBanner);

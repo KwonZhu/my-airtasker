@@ -1,33 +1,15 @@
 import React from "react";
 import HomePageBanner from "./app/HomePageBanner";
 import PageHeader from "./app/PageHeader";
+import { UserProvider } from "./app/UserContext";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      user: undefined,
-    };
-
-    this.handleUserChange = this.handleUserChange.bind(this);
-  }
-
-  handleUserChange(newUser) {
-    this.setState({
-      user: newUser,
-    });
-  }
-
-  render() {
-    const { user } = this.state;
-    return (
-      <div>
-        <PageHeader user={user} handleUserChange={this.handleUserChange} />
-        <HomePageBanner user={user} handleUserChange={this.handleUserChange} />
-      </div>
-    );
-  }
-}
+const App = () => (
+  <UserProvider>
+    {" "}
+    {/* UserProvider has provided user and handleUserChange, so that every child can access them */}
+    <PageHeader />
+    <HomePageBanner />
+  </UserProvider>
+);
 
 export default App;

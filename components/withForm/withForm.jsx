@@ -121,6 +121,7 @@ const withForm =  //先调用withForm且传configuration(names, validate)
         const invalidForm = Object.keys(error).length > 0;
         return (
           <Component
+            // pass all to Component
             {...this.props} // closeModal was given by PageHeader.jsx
             data={data}
             isFormSubmit={isFormSubmit}

@@ -1,9 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "../../components/Button";
-import LogInModal from "../LogInModal";
-import withModal from "../../components/withModal";
-import UserContext from "../UserContext";
+import CallToAction from "./components/CallToAction";
 
 const Wrapper = styled.div`
   height: calc(100vh - 120px);
@@ -33,41 +30,14 @@ const Sub = styled.p`
   line-height: 40px;
 `;
 
-const HomePageBanner = ({ showModal, handleShowModalChange, closeModal }) => (
-  <UserContext.Consumer>
-    {({ user, handleUserChange }) => (
-      <Wrapper>
-        <Container>
-          <Heading>
-            Connect with experts to get the job done on Airtasker
-          </Heading>
-          <Sub>It's amazing what you can't do yourself</Sub>
-          <div>
-            {/* Ternary Expression */}
-            {user ? (
-              <Button>Get started now</Button>
-            ) : (
-              <>
-                <Button onClick={() => handleShowModalChange("logIn")}>
-                  Log in
-                </Button>
-                {showModal === "logIn" && (
-                  <LogInModal
-                    closeModal={closeModal}
-                    // onLogIn={(newUser) => this.handleUserChange(newUser)}
-                    // can be simplify to onLogIn={this.handleUserChange}
-                    onLogIn={(newUser) => {
-                      handleUserChange(newUser);
-                      closeModal(); // In here, '()' is necessary
-                    }}
-                  />
-                )}
-              </>
-            )}
-          </div>
-        </Container>
-      </Wrapper>
-    )}
-  </UserContext.Consumer>
+const HomePageBanner = () => (
+  <Wrapper>
+    <Container>
+      <Heading>Connect with experts to get the job done on Airtasker</Heading>
+      <Sub>It's amazing what you can't do yourself</Sub>
+      {/* CallToAction includes Log in Button and UserContext using */}
+      <CallToAction />
+    </Container>
+  </Wrapper>
 );
-export default withModal(HomePageBanner);
+export default HomePageBanner;

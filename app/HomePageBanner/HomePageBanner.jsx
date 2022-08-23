@@ -36,6 +36,7 @@ const HomePageBanner = () => (
       <Heading>Connect with experts to get the job done on Airtasker</Heading>
       <Sub>It's amazing what you can't do yourself</Sub>
       {/* CallToAction includes Log in Button and UserContext using */}
+      {/* Demonstrate Consumer consume Provider in the 3rd layer  */}
       <CallToAction />
     </Container>
   </Wrapper>

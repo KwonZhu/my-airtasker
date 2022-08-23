@@ -36,7 +36,7 @@ const withModal = (Component) => {
 
       return (
         <Component
-          // pass all to Component
+          // spread all to Component
           {...this.props}
           showModal={showModal}
           handleShowModalChange={this.handleShowModalChange}

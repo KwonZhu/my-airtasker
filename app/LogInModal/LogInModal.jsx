@@ -22,6 +22,7 @@ const LogInButton = styled(Button)`
 const LogInModal = ({
   // const { closeModal } = this.props in render when LogInModal was a class
   closeModal,
+  // these props were given by withForm
   onLogIn,
   data,
   error,

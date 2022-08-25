@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import Modal, { CloseButton } from "../../../../components/Modal";
-import Button from "../../../../components/Button";
-import Input from "../../../../components/Input";
-import FormItem from "../../../../components/FormItem";
-import validate from "./validate";
-import ErrorMessage from "../../../../components/ErrorMessage";
+import React from 'react';
+import styled from 'styled-components';
+import Modal, { CloseButton } from '../../../../components/Modal';
+import Button from '../../../../components/Button';
+import Input from '../../../../components/Input';
+import FormItem from '../../../../components/FormItem';
+import validate from './validate';
+import ErrorMessage from '../../../../components/ErrorMessage';
 
 const Wrapper = styled.form``;
 
@@ -20,7 +20,7 @@ const SignUpButton = styled(Button)`
 `;
 
 const initialData = {
-  value: "",
+  value: '',
   touched: false,
   blurred: false,
   focused: false,
@@ -131,20 +131,25 @@ class SignUpModal extends React.Component {
             event.preventDefault();
             this.handleIsFormSubmitChange(true);
             if (invalidForm) {
-              console.log("Form has error");
+              console.log('Form has error');
               return;
             }
-            console.log("state", this.state);
+            console.log('state', this.state);
           }}
         >
           {[
-            { key: "email", label: "Email" },
-            { key: "password", label: "Password" },
-            { key: "confirmPassword", label: "Confirm password" },
-          ].map(({ key, label }) => (
+            { key: 'email', label: 'Email', type: 'email' },
+            { key: 'password', label: 'Password', type: 'password' },
+            {
+              key: 'confirmPassword',
+              label: 'Confirm password',
+              type: 'password',
+            },
+          ].map(({ key, label, type }) => (
             <FormItem key={key} label={label} htmlFor={`sign-up-modal-${key}`}>
               <Input
                 name={key} //event.target.name. use name as a key to distinguish these 3 Input
+                type={type}
                 value={data[key].value} //initial value
                 onChange={this.handleDataChange} //occurs when value(input) change
                 onFocus={this.handleFocusedChange} //occurs when Input gets focus

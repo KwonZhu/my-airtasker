@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import Modal, { CloseButton } from "../../components/Modal";
-import Button from "../../components/Button";
-import Input from "../../components/Input";
-import FormItem from "../../components/FormItem";
-import ErrorMessage from "../../components/ErrorMessage";
-import withLogInForm from "../PageHeader/components/withLogInForm";
+import React from 'react';
+import styled from 'styled-components';
+import Modal, { CloseButton } from '../../components/Modal';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import FormItem from '../../components/FormItem';
+import ErrorMessage from '../../components/ErrorMessage';
+import withLogInForm from '../PageHeader/components/withLogInForm';
 
 const Wrapper = styled.form``;
 
@@ -41,7 +41,7 @@ const LogInModal = ({
         event.preventDefault();
         handleIsFormSubmitChange(true);
         if (invalidForm) {
-          console.log("Form has error");
+          console.log('Form has error');
           return;
         }
         onLogIn({
@@ -50,13 +50,13 @@ const LogInModal = ({
       }}
     >
       {[
-        { key: "email", label: "Email", type: "text" },
-        { key: "password", label: "Password", type: "password" },
+        { key: 'email', label: 'Email', type: 'text' },
+        { key: 'password', label: 'Password', type: 'password' },
       ].map(({ key, label, type }) => (
         <FormItem key={key} label={label} htmlFor={`log-in-modal-${key}`}>
           <Input
             name={key} //event.target.name. use name as a key to distinguish these 3 Input
-            type={type}
+            type={type} //add type to show password as * when user is inputting
             value={data[key].value} //initial value
             onChange={handleDataChange} //occurs when value(input) change
             onFocus={handleFocusedChange} //occurs when Input gets focus

@@ -1,1 +1,1 @@
-export { default } from "./withLogInForm";
+export { default } from './withLogInForm';

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 // 原理与withForm一样
 // 接收一个Context，获得的是return的HOC，即(Component) => {}

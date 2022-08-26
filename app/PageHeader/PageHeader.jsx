@@ -1,12 +1,12 @@
-import React from "react";
-import styled from "styled-components";
-import Button from "../../components/Button";
-import Modal, { CloseButton } from "../../components/Modal";
-import SignUPModal from "./components/SignUpModal";
-import NakedButton from "../../components/NakedButton";
-import LogInModal from "../LogInModal";
-import withModal from "../../components/withModal";
-import UserContext from "../UserContext";
+import React from 'react';
+import styled from 'styled-components';
+import Button from '../../components/Button';
+import Modal, { CloseButton } from '../../components/Modal';
+import SignUPModal from './components/SignUpModal';
+import NakedButton from '../../components/NakedButton';
+import LogInModal from '../LogInModal';
+import withModal from '../../components/withModal';
+import UserContext from '../UserContext';
 
 const Wrapper = styled.div`
   margin-bottom: -60px; //overlap between background img and PageHeader
@@ -67,11 +67,11 @@ const PageHeader = ({ showModal, handleShowModalChange, closeModal }) => (
             <Logo>My Airtasker</Logo>
             <Button
               size="sm"
-              onClick={() => handleShowModalChange("postATask")}
+              onClick={() => handleShowModalChange('postATask')}
             >
               Post a task
             </Button>
-            {showModal === "postATask" && (
+            {showModal === 'postATask' && (
               <Modal onClose={closeModal}>
                 <CloseButton onClick={closeModal} />
                 Post a task
@@ -86,25 +86,25 @@ const PageHeader = ({ showModal, handleShowModalChange, closeModal }) => (
             {user ? (
               <MenuItem>{user.email}</MenuItem>
             ) : (
-              // <React.Fragment>or<> is used to fix missing parent element problem in Ternary Expression
+              // <React.Fragment>or<> is used to fix missing parent element problem in Conditional Operator
               <React.Fragment>
                 <MenuItem
                   as={NakedButton}
-                  onClick={() => handleShowModalChange("signUp")}
+                  onClick={() => handleShowModalChange('signUp')}
                 >
                   Sign up
                 </MenuItem>
                 {/* <=> <MenuItem onClick={this.handleSignUpOnClick}>Sign up</MenuItem> */}
-                {showModal === "signUp" && (
+                {showModal === 'signUp' && (
                   <SignUPModal closeModal={closeModal} />
                 )}
                 <MenuItem
                   as={NakedButton}
-                  onClick={() => handleShowModalChange("logIn")}
+                  onClick={() => handleShowModalChange('logIn')}
                 >
                   Log in
                 </MenuItem>
-                {showModal === "logIn" && (
+                {showModal === 'logIn' && (
                   <LogInModal
                     closeModal={closeModal}
                     // onLogIn={(newUser) => this.handleUserChange(newUser)}

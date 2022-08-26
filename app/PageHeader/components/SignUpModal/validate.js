@@ -1,17 +1,19 @@
-const validate = (name, data) => { // put it outside of SignUpModal class because it does not need 'this'
-                                   // put it outside of SignUpModal.jsx to simplify SignUpModal.jsx
+// put it outside of SignUpModal class because it does not need 'this'
+// put it outside of SignUpModal.jsx to simplify SignUpModal.jsx
+const validate = (name, data) => {
   const { value } = data[name];
   switch (name) {
     case 'email': {
       if (!value) {
         return 'Please input your email';
       }
-      const EMAIL_REGEXP = /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,})$/;
+      const EMAIL_REGEXP =
+        /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,})$/;
       if (!EMAIL_REGEXP.test(value)) {
         return 'Please enter a valid email';
       }
       return '';
-    };
+    }
     case 'password': {
       if (!value) {
         return 'Please input your password';
@@ -19,7 +21,7 @@ const validate = (name, data) => { // put it outside of SignUpModal class becaus
       if (value.toString().length < 8 || value.toString().length > 16) {
         return 'Please enter an 8 to 16 characters password';
       }
-    };
+    }
     case 'confirmPassword': {
       if (!value) {
         return 'Please input your confirm password';
@@ -28,9 +30,9 @@ const validate = (name, data) => { // put it outside of SignUpModal class becaus
         return 'Confirm password dose not match to password';
       }
       return '';
-    };
-    default: 
+    }
+    default:
       return '';
   }
-}
+};
 export default validate;

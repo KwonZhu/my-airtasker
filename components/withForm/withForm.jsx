@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react';
 
 const initialData = {
-  value: "",
+  value: '',
   touched: false,
   blurred: false,
   focused: false,
 };
 
-const withForm =  //先调用withForm且传configuration(names, validate)
+const withForm =  //when call withForm, pass configuration(names, validate)
   ({ names, validate }) =>
-  //获得的是return的HOC，即(Component) => {}
+  //return HOC - (Component) => {}
   (Component) => {
     //获得HOC后再拿Component去再调用一次，即(LogInModal) => {}
     //最后return set up好了的Form class，即<LogInModal

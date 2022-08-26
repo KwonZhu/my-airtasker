@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import CallToAction from "./components/CallToAction";
+import React from 'react';
+import styled from 'styled-components';
+import CallToAction from './components/CallToAction';
 
 const Wrapper = styled.div`
   height: calc(100vh - 120px);
   max-height: 650px;
-  background: url("https://www.airtasker.com/images/open-graph/general.jpg");
+  background: url('https://www.airtasker.com/images/open-graph/general.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position-y: 20%;

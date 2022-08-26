@@ -7,7 +7,8 @@ const Button = styled(NakedButton)`
   font-weight: bold;
   border-radius: 160px;
 
-  ${({size}) => { //destructuring, prefer without destructuring
+  ${({ size }) => {
+    //destructuring, prefer without destructuring
     return {
       sm: css`
         font-size: 14px;
@@ -27,23 +28,25 @@ const Button = styled(NakedButton)`
     }[size || 'md'];
   }}
 
-  ${(props) => ({ //without destructuring
-    primary: css`
-      background-color: rgb(224, 68, 109);
-      color: white;
-      border: 2px solid rgb(224, 68, 109);
-    `,
-    success: css`
-      background-color: rgb(125, 179, 67);
-      color: white;
-      border: 2px solid rgb(125, 179, 67);
-    `,
-    transparent: css`
-      background-color: transparent;
-      color: white;
-      border: 2px solid white;
-    `
-  }[props.variant || 'primary'])}
+  ${(props) =>
+    ({
+      //without destructuring
+      primary: css`
+        background-color: rgb(224, 68, 109);
+        color: white;
+        border: 2px solid rgb(224, 68, 109);
+      `,
+      success: css`
+        background-color: rgb(125, 179, 67);
+        color: white;
+        border: 2px solid rgb(125, 179, 67);
+      `,
+      transparent: css`
+        background-color: transparent;
+        color: white;
+        border: 2px solid white;
+      `,
+    }[props.variant || 'primary'])}
 `;
 
 export default Button;

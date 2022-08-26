@@ -20,9 +20,9 @@ const LogInButton = styled(Button)`
 `;
 
 const LogInModal = ({
-  // const { closeModal } = this.props in render when LogInModal was a class
+  //  when LogInModal was a class, const { closeModal } = this.props in render
   closeModal,
-  // these props were given by withForm
+  // upcoming props were given by withForm
   onLogIn,
   data,
   error,
@@ -74,6 +74,5 @@ const LogInModal = ({
   </Modal>
 );
 
-// Call function withForm, also pass names and validate.
-// Then cal LogInModal
+// withLogInForm Call function withForm, also pass names and validate.
 export default withLogInForm(LogInModal);

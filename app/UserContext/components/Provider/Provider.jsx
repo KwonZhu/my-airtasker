@@ -1,5 +1,5 @@
-import React from "react";
-import UserContext from "../../UserContext";
+import React from 'react';
+import UserContext from '../../UserContext';
 
 class Provider extends React.Component {
   constructor(props) {
